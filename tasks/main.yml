@@ -6,6 +6,15 @@
     state: 'present'
     install_recommends: False
 
+- name: Create directory for unix socket
+  file:
+    path: '{{ memcached_socket|dirname }}'
+    owner: memcache
+    group: memcache
+    mode: 0755
+    state: directory
+  when: memcached_socket is defined
+
 - name: Configure memcached
   template:
     src: 'etc/memcached.conf.j2'

@@ -48,6 +48,12 @@ logfile /var/log/memcached.log
 # Maximize core file limit
 # -r
 
+{% if memcached_socket is defined %}
+# use unix socket
+-s {{ memcached_socket }}
+-a 0755
+{% endif %}
+
 {% if memcached_options|d() and memcached_options %}
 {{ memcached_options }}
 {% endif %}
